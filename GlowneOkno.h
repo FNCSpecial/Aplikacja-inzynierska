@@ -12,12 +12,9 @@
 #include <wx/choice.h>
 #include <wx/arrstr.h>
 #include <wx/filename.h>
-#include <memory>
-
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
 #endif
-
 
 enum {
 	ID_Zapisz = 1,
@@ -43,32 +40,20 @@ enum {
 	ID_Wynik7 = 17,
 
 	ID_Domieszkowanie1 = 50,
-	ID_Domieszkowanie2 = 51,
-
-	ID_OnZapisz_1 = 60,
-	ID_OnZapisz_2 = 61,
-	ID_OnZapisz_3 = 62,
-	ID_OnZapisz_4 = 63,
-	ID_OnZapisz_5 = 64,
-	ID_OnZapisz_6 = 65,
-	ID_OnZapisz_7 = 66
+	ID_Domieszkowanie2 = 51
 };
 
-
-class MyFrame : public wxFrame {
+class MyFrame : public wxFrame
+{
 public:
 
 
 	MyFrame(const wxString& title, const wxPoint& pos, const wxSize& size, const long& style);
 	wxPanel* panel = new wxPanel(this);
 
-	mpInfoCoords* nfo;
-
 	//zmienne 
-	wxTextCtrl* Dlugosc_Fali = new wxTextCtrl(this, wxID_ANY, "D³ugoœæ_Fali w mikrometrach");
-	wxTextCtrl* Podaj_N = new wxTextCtrl(this, wxID_ANY, "Miejsce zerowe");
-	wxArrayString domieszkowanie_lista1;
-	wxArrayString domieszkowanie_lista2;
+	wxTextCtrl* Dlugosc_Fali = new wxTextCtrl(this, wxID_ANY, "D³ugoœæ_Fali");
+	wxArrayString domieszkowanie_lista;
 	wxChoice* Domieszkowanie1;
 	wxChoice* Domieszkowanie2;
 
@@ -77,7 +62,7 @@ public:
 
 	//graf
 	bool ticks;
-	mpWindow* graf = new mpWindow(this, wxID_ANY, wxPoint(0, 0), wxSize(1080, 720), wxSUNKEN_BORDER);
+	mpWindow* graf = new mpWindow(this, wxID_ANY, wxPoint(0, 0), wxSize(960, 400), wxSUNKEN_BORDER);
 	mpScaleX* xaxis = new mpScaleX(wxT("X"), mpALIGN_BOTTOM, false, mpX_NORMAL);
 	mpScaleY* yaxis = new mpScaleY(wxT("Y"), mpALIGN_LEFT, false);
 	std::vector<double> vectorx, vectory;
@@ -92,7 +77,6 @@ public:
 	double lambda;
 	int dom1;
 	int dom2;
-	int N;
 
 
 	//Chwilowe zmienne
@@ -108,19 +92,6 @@ public:
 	wxMenu* menuGraf = new wxMenu;
 	wxMenu* menuWynik = new wxMenu;
 	wxMenuBar* menuBar = new wxMenuBar;
-
-
-
-	//sizery
-	wxBoxSizer* topsizer = new wxBoxSizer(wxVERTICAL);
-	wxBoxSizer* horizontalsizer = new wxBoxSizer(wxHORIZONTAL);
-	wxBoxSizer* zmiennesizer = new wxBoxSizer(wxVERTICAL);
-	wxBoxSizer* zmiennesizer2 = new wxBoxSizer(wxVERTICAL);
-
-
-	//blokada
-
-	bool zmienne = false;
 
 	//Funckje
 private:
@@ -150,8 +121,6 @@ private:
 	void OnWynik7(wxCommandEvent& event);
 
 	wxDECLARE_EVENT_TABLE();
-
-
 };
 
 
@@ -180,64 +149,4 @@ EVT_MENU(ID_Wynik5, MyFrame::OnWynik5)
 EVT_MENU(ID_Wynik6, MyFrame::OnWynik6)
 EVT_MENU(ID_Wynik7, MyFrame::OnWynik7)
 
-wxEND_EVENT_TABLE();
-
-
-
-class MyFrame1 : public wxFrame
-{
-public:
-
-	MyFrame1(const wxString& title, const wxPoint& pos, const wxSize& size, const long& style);
-	wxPanel* mainPane = new wxPanel(this);
-	wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
-
-
-
-	wxMenu* menuPLikWynik = new wxMenu;
-	wxMenuBar* menuBarWynik = new wxMenuBar;
-
-	double lambda;
-	int dom1;
-	int dom2;
-	int N;
-
-
-private:
-	void OnZapisz_1(wxCommandEvent& event);
-	void OnZapisz_2(wxCommandEvent& event);
-	void OnZapisz_3(wxCommandEvent& event);
-	void OnZapisz_4(wxCommandEvent& event);
-	void OnZapisz_5(wxCommandEvent& event);
-	void OnZapisz_6(wxCommandEvent& event);
-	void OnZapisz_7(wxCommandEvent& event);
-	void OnExit(wxCommandEvent& event);
-
-
-
-	wxDECLARE_EVENT_TABLE();
-};
-
-
-
-wxBEGIN_EVENT_TABLE(MyFrame1, wxFrame)
-
-EVT_MENU(ID_OnZapisz_1, MyFrame1::OnZapisz_1)
-EVT_MENU(ID_OnZapisz_2, MyFrame1::OnZapisz_2)
-EVT_MENU(ID_OnZapisz_3, MyFrame1::OnZapisz_3)
-EVT_MENU(ID_OnZapisz_4, MyFrame1::OnZapisz_4)
-EVT_MENU(ID_OnZapisz_5, MyFrame1::OnZapisz_5)
-EVT_MENU(ID_OnZapisz_6, MyFrame1::OnZapisz_6)
-EVT_MENU(ID_OnZapisz_7, MyFrame1::OnZapisz_7)
-EVT_MENU(wxID_EXIT, MyFrame1::OnExit)
-
-wxEND_EVENT_TABLE();
-
-
-class cApp : public wxApp
-{
-
-	virtual bool OnInit();
-};
-
-wxIMPLEMENT_APP(cApp);
+wxEND_EVENT_TABLE()

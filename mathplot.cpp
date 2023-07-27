@@ -2576,10 +2576,12 @@ void mpFXYVector::SetData( const std::vector<double> &xs,const std::vector<doubl
             if (*it<m_minY) m_minY=*it;
             if (*it>m_maxY) m_maxY=*it;
         }
+		/*ale nob to robi³ ja jebie
         m_minX-=0.5f;
         m_minY-=0.5f;
         m_maxX+=0.5f;
         m_maxY+=0.5f;
+		*/
     }
     else
     {
